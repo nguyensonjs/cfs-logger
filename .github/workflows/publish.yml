@@ -9,6 +9,8 @@ on:
 
 jobs:
   build:
+    # Chỉ chạy build khi push branch main (không có tag)
+    if: github.ref == 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,18 +28,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Run tests (optional)
+      - name: Run tests
         run: npm test || echo "No tests found"
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: dist/
-          retention-days: 1
-
   publish:
-    needs: build
+    # Chỉ chạy khi push tag
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
@@ -57,11 +52,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-files
-          path: dist/
+      - name: Build project
+        run: npm run build
+
+      - name: Run tests
+        run: npm test || echo "No tests found"
 
       - name: Verify package
         run: |
