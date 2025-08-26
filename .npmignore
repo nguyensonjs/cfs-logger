@@ -1,0 +1,26 @@
+# Source code (chỉ publish dist)
+src/
+tsconfig.json
+
+# Dev tools
+.vscode/
+.idea/
+*.code-workspace
+
+# Build & temp
+node_modules/
+logs/
+*.log
+
+# Git
+.git/
+.gitignore
+
+# Tests & examples
+test/
+example/
+*.spec.ts
+
+# Env
+.env
+.env.*.local
