@@ -1,6 +1,6 @@
 {
   "name": "cfs-logger",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Simple colorful JSON logger for Node.js projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
